@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PesanController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+
+Auth::routes();
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('web');
+Route::post('/pesan/send',[PesanController::class,'send'])->middleware('auth');
