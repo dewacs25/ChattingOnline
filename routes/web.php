@@ -22,6 +22,7 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('web');
 Route::post('/pesan/send',[PesanController::class,'send'])->middleware('auth');
+Route::delete('/destroy/{id}', [PesanController::class,'destroy'])->name('pesan.destroy');
 
 Route::post('send',function(Request $req){
     $req->validate([

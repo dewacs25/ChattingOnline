@@ -57,14 +57,35 @@
                                             <i class="fa-solid fa-ellipsis-vertical"></i>
                                         </button>
                                         <ul class="dropdown-menu border border-2 border-light " style="background: #000">
-                                            <li><a class="dropdown-item text-light hoverItem" href="#">Action</a></li>
-                                            <li><a class="dropdown-item text-light hoverItem" href="#">Another
-                                                    action</a></li>
-                                            <li><a class="dropdown-item text-light hoverItem" href="#">Something else
-                                                    here</a></li>
+                                            <li> <button type="button" class="btn  text-success" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $row->id }}">
+                                                Hapus
+                                            </button></li>
                                         </ul>
                                     </div>
                                 </div>
+
+                                <!-- Modal konfirmasi hapus -->
+                                    <div class="modal fade" id="confirmDeleteModal{{ $row->id }}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel{{ $row->id }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    Apakah Anda yakin ingin menghapus pesan ini ini?
+
+                                                    <!-- Tombol hapus dengan form -->
+                                                   <div class="d-flex justify-content-between ">
+                                                    <button type="button" class="btn text-success" data-bs-dismiss="modal">Batal</button>
+                                                    
+                                                    <form action="{{ route('pesan.destroy', ['id' => $row->id]) }}" method="POST" class="delete-form">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn text-success">Hapus</button>
+                                                    </form>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 <div class="card-body message-body" style="background-color: rgb(67, 129, 70); color: #fff">
                                     <div class="message-content">{{ $row->isi_pesan }}</div>
 
@@ -92,7 +113,7 @@
                     <div class="input-group ">
                         @csrf
                         <input type="text" autocomplete="off" onfocus="zoomOnFocus()" onblur="resetZoom()"
-                            name="isi_pesan" class="form-control sendTxt" placeholder="Tulis Pesan...">
+                            name="isi_pesan" class="form-control sendTxt text-light" placeholder="Tulis Pesan...">
                         <button type="submit" id="kirim" class="border border-1 btn btn-sm bg-transparent"><i
                                 class="fas fa-paper-plane"></i></button>
                     </div>
@@ -101,6 +122,12 @@
             </div>
         </div>
     </div>
+
+<!-- Efek loading -->
+<div id="loading-overlay">
+    <div class="loading-spinner"></div>
+</div>
+
     <script>
         function autoScrollToBottom() {
             var messageContainer = document.getElementById("data-message");
@@ -153,6 +180,13 @@
                             </div>`);
             });
         });
+    </script>
+    //loading
+    <script>
+window.addEventListener('load', function() {
+    document.getElementById('loading-overlay').style.display = 'none';
+});
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
