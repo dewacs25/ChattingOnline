@@ -1,6 +1,8 @@
 <?php
 
+use App\Events\ChatEvent;
 use App\Http\Controllers\PesanController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +22,17 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('web');
 Route::post('/pesan/send',[PesanController::class,'send'])->middleware('auth');
+
+Route::post('send',function(Request $req){
+    $req->validate([
+        'name'=>'required',
+        'message'=>'required',
+    ]);
+
+    $message = [
+        'name'=>$req->name,
+        'message'=>$req->message,
+    ];
+
+    ChatEvent::dispatch($message);
+});
