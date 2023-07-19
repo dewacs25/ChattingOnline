@@ -29,3 +29,7 @@ body {
     max-height: 75px;
     overflow: hidden;
 }
+
+.hoverItem:hover{
+    background-color: #888888 !important;
+}
