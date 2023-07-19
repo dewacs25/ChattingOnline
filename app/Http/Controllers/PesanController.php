@@ -38,6 +38,9 @@ class PesanController extends Controller
         $data = Pesan::findOrFail($id);
         $data->delete();
 
+        // $data->isi_pesan = "<delete><delete>";
+        // $data->save();
+
         return redirect('/');
     }
 

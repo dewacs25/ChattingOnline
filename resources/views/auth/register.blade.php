@@ -74,13 +74,5 @@
         </div>
     </div>
 </div>
-<div id="loading-overlay">
-    <div class="loading-spinner"></div>
-</div>
-<script>
-    window.addEventListener('load', function() {
-        document.getElementById('loading-overlay').style.display = 'none';
-    });
-    
-        </script>
+
 @endsection

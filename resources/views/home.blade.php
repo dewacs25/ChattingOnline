@@ -47,7 +47,8 @@
                 align-items: flex-start;">
                     @foreach ($dataPesan as $row)
                         @if ($row->user_id == $userid)
-                            <div class="cardPesan card me-2 bg-transparent" style="max-width: 70%; align-self: flex-end;">
+                            <div class="cardPesan mb-2 card me-2 bg-transparent"
+                                style="max-width: 70%; align-self: flex-end;">
                                 <div class="card-header  p-0 bg-transparent border-0 text-light">
                                     <span class="ms-1 ">Anda</span><span class="ms-3"
                                         style="font-size: 11px">{{ $row->created_at->format('D M y | H:I A') }}</span>
@@ -57,49 +58,69 @@
                                             <i class="fa-solid fa-ellipsis-vertical"></i>
                                         </button>
                                         <ul class="dropdown-menu border border-2 border-light " style="background: #000">
-                                            <li> <button type="button" class="btn  text-success" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $row->id }}">
-                                                Hapus
-                                            </button></li>
+                                            <li class="hoverItem"> <button type="button" class="btn  text-danger"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#confirmDeleteModal{{ $row->id }}">
+                                                    <i class="fa-solid fa-trash me-2"></i> Hapus
+                                                </button></li>
                                         </ul>
                                     </div>
                                 </div>
 
                                 <!-- Modal konfirmasi hapus -->
-                                    <div class="modal fade" id="confirmDeleteModal{{ $row->id }}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel{{ $row->id }}" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-body">
-                                                    Apakah Anda yakin ingin menghapus pesan ini ini?
+                                <div class="modal fade" id="confirmDeleteModal{{ $row->id }}" tabindex="-1"
+                                    aria-labelledby="confirmDeleteModalLabel{{ $row->id }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                Apakah Anda yakin ingin menghapus pesan ini ini?
 
-                                                    <!-- Tombol hapus dengan form -->
-                                                   <div class="d-flex justify-content-between ">
-                                                    <button type="button" class="btn text-success" data-bs-dismiss="modal">Batal</button>
-                                                    
-                                                    <form action="{{ route('pesan.destroy', ['id' => $row->id]) }}" method="POST" class="delete-form">
+                                                <!-- Tombol hapus dengan form -->
+                                                <div class="d-flex justify-content-between ">
+                                                    <button type="button" class="btn text-success"
+                                                        data-bs-dismiss="modal">Batal</button>
+
+                                                    <form action="{{ route('pesan.destroy', ['id' => $row->id]) }}"
+                                                        method="POST" class="delete-form">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn text-success">Hapus</button>
+                                                        <button type="submit" class="btn text-danger">Hapus</button>
                                                     </form>
-                                                </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
                                 <div class="card-body message-body" style="background-color: rgb(67, 129, 70); color: #fff">
-                                    <div class="message-content">{{ $row->isi_pesan }}</div>
+                                    <div class="message-content">
+                                        @if ($row->isi_pesan == '<delete><delete>')
+                                            <i class="fa-regular fa-circle-xmark me-1"></i> Pesan Telah Dihapus
+                                        @else
+                                            {{ $row->isi_pesan }}
+                                        @endif
+                                    </div>
 
                                     <a href="#" class="read-more">Baca Selengkapnya...</a>
                                 </div>
                             </div>
                         @else
-                            <div class="cardPesan card bg-transparent" style="max-width: 70%">
+                            <div class="cardPesan mb-2 card bg-transparent" style="max-width: 70%">
                                 <div class="card-header p-0 bg-transparent border-0 text-light">
                                     <span class="ms-1">{{ $row->user->name }}</span><span class="ms-3"
                                         style="font-size: 11px">{{ $row->created_at->format('D M y | H:I A') }}</span>
                                 </div>
                                 <div class="card-body message-body " style="background-color: rgb(49, 49, 49); color: #fff">
-                                    <div class="message-content">{{ $row->isi_pesan }}</div>
+                                    <div class="message-content">
+
+                                        @if ($row->isi_pesan == '<delete><delete>')
+                                            <span class="text-danger"><i class="fa-regular fa-circle-xmark me-1"></i> Pesan
+                                                Telah Dihapus</span>
+                                        @else
+                                            {{ $row->isi_pesan }}
+                                        @endif
+
+                                    </div>
                                     <a href="#" class="read-more">Baca Selengkapnya...</a>
                                 </div>
                             </div>
@@ -122,11 +143,12 @@
             </div>
         </div>
     </div>
+    {{-- notifikasi --}}
+    <audio id="notificationSound" src="{{ asset('sound/notifikasi.mp3') }}"></audio>
+    {{-- end --}}
 
-<!-- Efek loading -->
-<div id="loading-overlay">
-    <div class="loading-spinner"></div>
-</div>
+
+
 
     <script>
         function autoScrollToBottom() {
@@ -146,7 +168,7 @@
 
             channel.listen('ChatEvent', function(data) {
 
-                const waktu = data.message.waktu; // Ambil waktu dari data.message.waktu
+                const waktu = data.message.waktu;
                 const date = new Date(waktu);
 
                 const options = {
@@ -166,28 +188,30 @@
                 const result = `${formattedDate} | ${formattedTime} ${meridiem}`;
 
 
+
                 $('#data-message')
 
                     .append(`<div class="cardPesan card bg-transparent" style="max-width: 70%">
                                 <div class="card-header p-0 bg-transparent border-0 text-light">
-                                    <span class="ms-1">${data.message.name}</span>${result}<span class="ms-3"
-                                        style="font-size: 11px"></span>
+                                    <span class="ms-1">${data.message.name}</span><span class="ms-3"
+                                        style="font-size: 11px">${result}</span>
                                 </div>
                                 <div class="card-body message-body " style="background-color: rgb(49, 49, 49); color: #fff">
                                     <div class="message-content">${data.message.message}</div>
                                     <a href="#" class="read-more">Baca Selengkapnya...</a>
                                 </div>
                             </div>`);
+
+                var messageContainer = document.getElementById("data-message");
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+
+                const audio = document.getElementById("notificationSound");
+                audio.play();
+
             });
         });
     </script>
-    //loading
-    <script>
-window.addEventListener('load', function() {
-    document.getElementById('loading-overlay').style.display = 'none';
-});
 
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
     </script>
