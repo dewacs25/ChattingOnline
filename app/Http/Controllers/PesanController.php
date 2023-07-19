@@ -32,4 +32,13 @@ class PesanController extends Controller
 
         return redirect('/');
     }
+    
+    public function destroy($id)
+    {
+        $data = Pesan::findOrFail($id);
+        $data->delete();
+
+        return redirect('/');
+    }
+
 }

@@ -14,7 +14,7 @@
                             <div class="mb-3">
                                 <label for="email">{{ __('Email Address') }}</label>
                                 <input id="email" type="email"
-                                    class="form-control sendTxt @error('email') is-invalid @enderror" name="email"
+                                    class="form-control text-light sendTxt @error('email') is-invalid @enderror" name="email"
                                     value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
@@ -29,7 +29,7 @@
 
 
                                 <input id="password" type="password"
-                                    class="form-control sendTxt @error('password') is-invalid @enderror" name="password" required
+                                    class="form-control text-light sendTxt @error('password') is-invalid @enderror" name="password" required
                                     autocomplete="current-password">
 
                                 @error('password')
@@ -67,8 +67,18 @@
                             </div>
                         </form>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+    <div id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+    <script>
+        window.addEventListener('load', function() {
+            document.getElementById('loading-overlay').style.display = 'none';
+        });
+        
+            </script>
 @endsection
