@@ -1,5 +1,5 @@
 function zoomOnFocus() {
-    document.body.style.zoom = "150%";
+    // document.body.style.zoom = "150%";
 }
 
 function resetZoom() {
