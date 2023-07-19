@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var contentText = content.textContent;
 
-        if (contentText.length > 150) {
+        if (contentText.length > 250) {
             content.classList.add("collapsed");
             readMore.style.display = "inline";
 
@@ -32,4 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
             readMore.style.display = "none";
         }
     });
+});
+
+window.addEventListener('load', function() {
+    document.getElementById('loading-overlay').style.display = 'none';
 });
