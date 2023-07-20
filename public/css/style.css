@@ -65,3 +65,28 @@ body {
         transform: rotate(360deg);
     }
 }
+
+.sendAudio{
+    align-self: flex-end;
+    z-index: 10;
+    position: fixed;
+    bottom: 60px;
+}
+
+::-webkit-scrollbar {
+    width: 5px; /* Lebar panel penggulung vertikal */
+    height: 5px; /* Tinggi panel penggulung horizontal */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #888; /* Warna latar belakang thumb */
+    border-radius: 5px; /* Gaya lengkung border thumb */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Warna latar belakang thumb saat hover */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Warna latar belakang track */
+  }

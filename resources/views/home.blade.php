@@ -6,10 +6,7 @@
         <i class="fa-solid fa-bars"></i>
     </button>
 
-    <div class="d-md-none d-blog" style="position: fixed; right: 5px; bottom: 60px; z-index: 10;">
-        <button id="startButton" class="bg-dark text-light p-2 rounded-circle" style="width: 50px; height: 50px;"><i class="fa-solid fa-microphone"></i></button>
-        <button id="stopButton" class="bg-dark p-2 rounded-circle text-danger" style="display: none; width: 50px; height: 50px;"><i class="fa-solid fa-microphone-slash"></i></button>
-    </div>
+    
 
     <div class="offcanvas offcanvas-start " tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel"
         style="background: #000; box-shadow: 5px 5px 5px #ffffff6e">
@@ -148,9 +145,16 @@
                     @endif
                 @endforeach
 
+                
+                
+                    <div class="sendAudio">
+                        <button id="startButton" class="bg-dark text-light p-2 rounded-circle" style="width: 50px; height: 50px;"><i class="fa-solid fa-microphone"></i></button>
+                        <button id="stopButton" class="bg-dark p-2 rounded-circle text-danger" style="display: none; width: 50px; height: 50px;"><i class="fa-solid fa-microphone-slash"></i></button>
+                    </div>
+               
             </div>
 
-
+            
 
             <form action="/pesan/send" method="POST">
                 <div class="input-group ">
@@ -195,10 +199,7 @@
 
         </div>
         <div class="col-md-4 d-md-block d-none">
-            <div class="m-4">
-                <button id="startButton" class="bg-dark text-light p-2 rounded-circle" style="width: 50px; height: 50px;"><i class="fa-solid fa-microphone"></i></button>
-                <button id="stopButton" class="bg-dark p-2 rounded-circle text-danger" style="display: none; width: 50px; height: 50px;"><i class="fa-solid fa-microphone-slash"></i></button>
-            </div>
+            
         </div>
     </div>
 
