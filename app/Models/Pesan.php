@@ -10,7 +10,7 @@ class Pesan extends Model
     use HasFactory;
 
     protected $table = 'pesan';
-    protected $fillable = ['user_id','isi_pesan'];
+    protected $fillable = ['user_id','isi_pesan','type'];
 
     public function user()
     {

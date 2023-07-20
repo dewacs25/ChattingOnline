@@ -18,6 +18,7 @@
         
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <script src="https://unpkg.com/wanakana@5.1.0/wanakana.min.js"></script>
 
 </head>
 
