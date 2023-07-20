@@ -37,3 +37,5 @@ Route::post('send',function(Request $req){
 
     ChatEvent::dispatch($message);
 });
+
+Route::post('/save-audio', [PesanController::class,'pesanAudio']);
